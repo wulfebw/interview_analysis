@@ -57,3 +57,5 @@ docs/_build/
 *.save
 *.wav
 *.webm
+*.txt
+*/speech_models/*
