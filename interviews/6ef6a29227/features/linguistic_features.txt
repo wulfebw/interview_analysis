@@ -1,0 +1,1 @@
+most common word : [('good', 1)]most common bigram : [(('good', 'for'), 1)]speech : good fornumber of occurences of i : 0

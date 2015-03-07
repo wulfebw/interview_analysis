@@ -86,7 +86,6 @@ def stereo_to_mono(filename, samp_rate=16000, sox_exec_file='/usr/local/bin/sox'
 		speed = 2.75625		# 44100 / 16000 // how to get sample rate instead of assuming it is 44100?
 		rtn_filename = new_filename(filename, '_mono')
 		call_str = "{4} -r {2} {0} {1} channels 1 speed {3}".format(filename, rtn_filename, samp_rate, speed, sox_exec_file)
-		log_stuff('call string: {0}'.format(call_str))
 		subprocess.call(call_str, shell=True, stderr=subprocess.STDOUT)
 	except Exception as e:
 		exception_response(e)

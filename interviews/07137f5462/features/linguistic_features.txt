@@ -1,0 +1,1 @@
+most common word : [('new', 1)]most common bigram : [(('new', 'yes'), 1)]speech : up his new yesnumber of occurences of i : 0

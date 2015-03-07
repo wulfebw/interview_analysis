@@ -1,0 +1,1 @@
+most common word : [('can', 2)]most common bigram : [(('can', 'this'), 1)]speech : if it can come but kind of a high as to what can thisnumber of occurences of i : 0

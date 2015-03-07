@@ -1,0 +1,1 @@
+most common word : [('a', 1)]most common bigram : []speech : anumber of occurences of i : 0

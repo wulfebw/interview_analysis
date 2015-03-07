@@ -11,7 +11,7 @@ from logging.handlers import RotatingFileHandler
 app = Flask(__name__)
 
 # This is the path to the upload directory
-app.config['UPLOAD_FOLDER'] = 'iterviews/'
+app.config['UPLOAD_FOLDER'] = 'interviews/'
 
 # These are the extension that we are accepting to be uploaded
 app.config['ALLOWED_EXTENSIONS'] = set(['wav', 'webm'])
@@ -46,7 +46,9 @@ def upload():
 
 	if video:
 		# dir/filename for video to be saved as
-		video_filename = os.path.join(app.config['UPLOAD_FOLDER'],'{0}/video.webm'.format(pk))
+		video_filename = os.path.join(app.config['UPLOAD_FOLDER'],'{0}/uploads/video.webm'.format(pk))
+		# set the filename link to send back to the user
+		video_link = '{0}/uploads/video.webm'.format(pk)
 		# save the video
 		video.save(video_filename)
 
@@ -58,7 +60,9 @@ def upload():
 
 	if audio:
 		# dir/filename for audio to be saved as
-		audio_filename = os.path.join(app.config['UPLOAD_FOLDER'],'{0}/audio.wav'.format(pk))
+		audio_filename = os.path.join(app.config['UPLOAD_FOLDER'],'{0}/uploads/audio.wav'.format(pk))
+		# set the filename link to send back to the user
+		audio_link = '{0}/uploads/audio.wav'.format(pk)
 		# save the audio 
 		audio.save(audio_filename)
 		# convert to mono
@@ -68,11 +72,11 @@ def upload():
 		# get the linguistic stats 
 		linguistic_features = get_linguistic_features(speech)
 		# get output file for linguistic features
-		linguistic_features_file = 'interviews/{0}/features/linguistic_features.txt'
+		linguistic_features_file = 'interviews/{0}/features/linguistic_features.txt'.format(pk)
 		# write linguistic features to file
 		write_dict_features_to_file(linguistic_features, linguistic_features_file)
 		# add linguistic features to rtn_dict
-		rtn_features = dict(rtn_features + linguistic_features)
+		rtn_features = dict(rtn_features.items() + linguistic_features.items())
 
 	# render the template with the collected features
 	return render_template('features.html', 
@@ -82,9 +86,9 @@ def upload():
 							pk=pk)
 
 # route that will display previously uploaded media
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-	return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+@app.route('/interviews/<path:filepath>')
+def uploaded_file(filepath):
+	return send_from_directory(app.config['UPLOAD_FOLDER'], filepath)
 
 app.wsgi_app = ProxyFix(app.wsgi_app)
 

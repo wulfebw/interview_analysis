@@ -1,0 +1,1 @@
+most common word : [('his', 1)]most common bigram : [(('day', 'worried'), 1)]speech : i'm just let guests his day worried corpsnumber of occurences of i : 1

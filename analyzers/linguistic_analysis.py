@@ -21,9 +21,9 @@ Recognize Speech from audio files.
 """
 
 def recognize_speech(filename,
-					hmm = '../speech_models/cmusphinx-5prealpha-en-us-2.0',
-					lm = '../speech_models/cmusphinx-5.0-en-us.lm.dmp',
-					dic = '../speech_models/hub4.5000.dic',
+					hmm = '/home/ec2-user/interview_analysis/speech_models/cmusphinx-5prealpha-en-us-2.0',
+					lm = '/home/ec2-user/interview_analysis/speech_models/cmusphinx-5.0-en-us.lm.dmp',
+					dic = '/home/ec2-user/interview_analysis/speech_models/hub4.5000.dic',
 					samp_rate = '16000'):
 	"""
 	Recognizes speech in a wave file.
@@ -86,7 +86,7 @@ def get_most_common_bigram(tokens):
 
 	bigrams = list(nltk.bigrams(tokens))
 	freq_dist_bigrams = nltk.FreqDist(bigrams)
-	return req_dist_biagrams.most_common(1)
+	return freq_dist_bigrams.most_common(1)
 
 def get_num_occurences_of_word(tokens, word='i'):
 	""" 
@@ -111,3 +111,9 @@ def get_linguistic_features(speech):
 	linguistic_features['most common bigram'] = get_most_common_bigram(tokens)
 	linguistic_features['number of occurences of {0}'.format('i')] = get_num_occurences_of_word(tokens, 'i')
 	return linguistic_features 
+
+
+if __name__ == "__main__":
+	wavfile = "/home/ec2-user/flask_attempts/uploads/audio_test_1.wav"
+	result = recognize_speech(wavfile)
+	print(result) 

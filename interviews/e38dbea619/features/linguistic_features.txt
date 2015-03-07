@@ -1,0 +1,1 @@
+most common word : [('the', 1)]most common bigram : [(('the', 'eye'), 1)]speech : the eyenumber of occurences of i : 0
