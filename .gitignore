@@ -58,4 +58,3 @@ docs/_build/
 *.wav
 *.webm
 *.txt
-**/speech_models/**
