@@ -1,0 +1,22 @@
+
+<div>
+     	{% for label, value in features.iteritems() %}
+                <p>{{ label }} : {{ value }}</p>
+        {% endfor%}
+<div>
+
+<div>
+    <form action="{{audio_filename}}" method="get" target="_blank">
+        <input type="submit" value="listen to audio">
+    </form>
+</div>
+
+<div>
+    <form action="\uploads\{{video_filename}}" method="get" target="_blank">
+        <input type="submit" value="watch video">
+    </form>
+</div>
+
+<div>
+	<h5> to reference your audio response for later please use the following id: {{ pk }}</h5>
+</div>

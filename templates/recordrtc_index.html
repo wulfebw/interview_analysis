@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+          rel="stylesheet">
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h3 class="text-muted">Interview Practice:</h3>
+	<h5>Question: what is your greatest weakness?</h5>
+      </div>
+      <hr/>
+      <div>
+
+      <div>
+        <video autoplay="autoplay" muted="muted">
+        </video>
+      </div>
+      <button id="record">Start Recording</button>
+      <button id="stop">Stop Recording</button>
+
+<!--      <div>
+        <form action="\playback\" method="post" enctype="multipart/form-data" >
+        <input type="submit" value="Submit">
+        </form>
+      </div>
+-->      
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      <script type="text/javascript" src="{{ url_for('static', filename='recordrtc/js/recordrtc.js') }}"></script>
+      <script type="text/javascript" src="{{ url_for('static', filename='admin/js/capture_video.js') }}"></script>
+
+
+      </div>
+    </div>
+  </body>
+</html>
+
