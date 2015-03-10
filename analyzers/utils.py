@@ -10,6 +10,7 @@ description: The functions in this file do the following:
 
 import os
 import sys
+import app
 import wave
 import random
 import traceback

@@ -3,18 +3,24 @@ from werkzeug import secure_filename
 from werkzeug.contrib.fixers import ProxyFix
 from analyzers.linguistic_analysis import recognize_speech, get_linguistic_features
 from analyzers.utils import *
+from flask.ext.sqlalchemy import SQLAlchemy
+
+
 
 import logging
 from logging.handlers import RotatingFileHandler
 
 # Initialize the Flask application
 app = Flask(__name__)
+app.config.from_object('congif.DevelopmentConfig')
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://localhost/flask_test_db'
+db = SQLAlchemy(app)
 
 # This is the path to the upload directory
-app.config['UPLOAD_FOLDER'] = 'interviews/'
+# app.config['UPLOAD_FOLDER'] = 'interviews/'
 
 # These are the extension that we are accepting to be uploaded
-app.config['ALLOWED_EXTENSIONS'] = set(['wav', 'webm'])
+# app.config['ALLOWED_EXTENSIONS'] = set(['wav', 'webm'])
 
 # Set the route to the file upload
 @app.route('/')
@@ -27,7 +33,7 @@ def upload():
 
 	# get a random value to indentify this interview
 	# not using a database for now, really need to learn more flask
-	pk_length = 10
+	pk_length = app.config['HEX_PK_LENGTH']
 	pk = get_rand_hex_value(pk_length)
 	make_dirs(pk)
 
