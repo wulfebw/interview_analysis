@@ -1,1 +1,0 @@
-most common word : [('a', 1)]most common bigram : [(('this', 'here'), 1)]speech : this here is a tests it has multiple causesnumber of occurences of i : 0

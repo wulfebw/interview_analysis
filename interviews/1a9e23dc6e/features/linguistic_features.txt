@@ -1,1 +1,0 @@
-most common word : [('so', 1)]most common bigram : []speech : sonumber of occurences of i : 0

@@ -1,1 +1,0 @@
-most common word : [('to', 1)]most common bigram : [(('to', 'you'), 1)]speech : thank to younumber of occurences of i : 0

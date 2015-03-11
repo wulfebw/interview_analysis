@@ -1,1 +1,0 @@
-most common word : [('it', 2)]most common bigram : [(("'s", 'own'), 1)]speech : and it's own saying it ain't truenumber of occurences of i : 0

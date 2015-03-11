@@ -1,1 +1,0 @@
-most common word : [('a', 1)]most common bigram : [(('after', 'a'), 1)]speech : after a gun in handnumber of occurences of i : 0

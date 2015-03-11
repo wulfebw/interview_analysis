@@ -1,1 +1,0 @@
-most common word : [("n't", 1)]most common bigram : [(('on', 'the'), 1)]speech : on the can'tnumber of occurences of i : 0

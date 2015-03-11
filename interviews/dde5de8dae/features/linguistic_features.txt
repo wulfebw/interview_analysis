@@ -1,1 +1,0 @@
-most common word : [('high', 1)]most common bigram : [(('with', 'it'), 1)]speech : busy with it highnumber of occurences of i : 0

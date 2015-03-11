@@ -1,1 +1,0 @@
-most common word : [('guess', 1)]most common bigram : [(('what', 'oh'), 1)]speech : i have this seek the ain't guess what oh hour are you doingnumber of occurences of i : 1

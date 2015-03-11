@@ -1,1 +1,0 @@
-most common word : [('i', 1)]most common bigram : [(('think', 'the'), 1)]speech : i think the othernumber of occurences of i : 1

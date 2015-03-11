@@ -1,1 +1,0 @@
-most common word : [('means', 1)]most common bigram : [(('you', 'need'), 1)]speech : i think that means you neednumber of occurences of i : 1

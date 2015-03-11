@@ -1,1 +1,0 @@
-most common word : [('this', 1)]most common bigram : [(('you', 'wrap'), 1)]speech : sometimes i feel bad about you wrap this upnumber of occurences of i : 1

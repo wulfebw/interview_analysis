@@ -1,1 +1,0 @@
-most common word : [('of', 2)]most common bigram : [(('of', 'the'), 1)]speech : an account of the kind of thingnumber of occurences of i : 0

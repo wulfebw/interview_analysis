@@ -1,1 +1,0 @@
-most common word : [('means', 1)]most common bigram : [(('stops', 'odd'), 1)]speech : i crashed stops odd means is thatnumber of occurences of i : 1

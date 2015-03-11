@@ -6,6 +6,9 @@ class Config(object):
 	SQLALCHEMY_DATABASE_URI = 'postgresql://localhost/flask_test_db'
 	UPLOAD_FOLDER = 'interviews/'
 	ALLOWED_EXTENSIONS = set(['wav', 'webm'])
+	VIDEO_FILENAME = 'video.webm'
+	AUDIO_FILENAME = 'audio.wav'
+	MAX_WORD_LENGTH = 20
 	
 
 class ProductionConfig(Config):

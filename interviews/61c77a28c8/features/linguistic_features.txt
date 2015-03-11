@@ -1,1 +1,0 @@
-most common word : [('it', 2)]most common bigram : [(('you', 'can'), 1)]speech : you can it make itnumber of occurences of i : 0
