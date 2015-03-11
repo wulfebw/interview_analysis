@@ -58,3 +58,4 @@ docs/_build/
 *.wav
 *.webm
 *.txt
+*.DS_Store
