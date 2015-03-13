@@ -30,7 +30,9 @@ def get_file_ext(filename):
 	Returns the extension of the given file.
 	"""
 
-	return filename.rsplit('.')[-1]
+	ext = filename.rsplit('.')[-1]
+	print("EXT_VALUE: {}".format(ext))
+	return ext
 
 def allowed_file(filename):
 	""" 
@@ -65,22 +67,6 @@ def make_dirs(pk):
 	print("DIRECTORY TO CREATE: {}".format(directory))
 	os.makedirs(directory)
 
-	# dirs = []
-	# interview_dir = base + '/' + pk
-	# dirs.append(interview_dir)
-	# # features_dir = interview_dir + '/' + 'features'
-	# # dirs.append(features_dir)
-	# # linguistic_dir = features_dir + '/' + 'linguistic'
-	# # dirs.append(linguistic_dir)
-	# # paralinguistic_dir = features_dir + '/' + 'paralinguistic'
-	# # dirs.append(paralinguistic_dir)
-	# # visual_dir = features_dir + '/' + 'visual'
-	# # dirs.append(visual_dir)
-
-	# for directory in dirs:
-	# 	if not os.path.exists(directory):
-	# 		os.makedirs(directory)
-
 
 def stereo_to_mono(filename, samp_rate=16000, sox_exec_file='/usr/local/bin/sox'):
 	"""
@@ -101,10 +87,12 @@ def get_file_duration(filename):
 	Returns the duration of a file. Currently implmented for wave files only.
 	"""
 
-	if get_file_ext(filename) is 'wav':
+	ext = get_file_ext(filename)
+	print("TYPE_EXT: {}".format(type(ext)))
+	if ext == 'wav':
 		framerate = 0
 		n_frames = 0
-		wavfile = wave.open(wavefile, 'rb')
+		wavfile = wave.open(filename, 'rb')
 		n_frames = wavfile.getnframes()
 		samprate = wavfile.getframerate()
 		duration = n_frames / samprate

@@ -1,18 +1,22 @@
 import os
 from shutil import move
+import random
 
 from flask import render_template, request, redirect, url_for, send_from_directory
 
-from interview_analysis import app
+from interview_analysis import app, db
 
 from scripts.utils import get_rand_hex_value, make_dirs, stereo_to_mono, write_dict_features_to_file
 
 from models import Interview
 
+from constants import *
+
 # Set the route to the file upload
 @app.route('/')
 def index():
-    return render_template('interview_analysis/upload.html')
+	question = random.choice(INTERVIEW_QUESTIONS)
+	return render_template('interview_analysis/upload.html', question=question)
 
 # Route that will process the file upload
 @app.route('/upload', methods=['POST'])
@@ -20,7 +24,7 @@ def upload():
 
 	# get a random value to indentify this interview
 	# not using a database for now, really need to learn more flask
-	pk_length = app.config['HEX_PK_LENGTH']
+	pk_length = HEX_PK_LENGTH
 	pk = get_rand_hex_value(pk_length)
 	print("PK_PRINT: {}".format(pk))
 	make_dirs(pk)
@@ -62,16 +66,20 @@ def upload():
 		audio.save(audio_filename)
 		# convert to mono
 		audio_mono_filename = stereo_to_mono(audio_filename)
+		print("AUDIO_MONO_FILENAME: {}".format(audio_mono_filename))
 		# overwrite the original file with the mono one
 		move(audio_mono_filename, audio_filename)
 		# create the object
 		interview = Interview(pk)
+		# set the question
+		interview.question = request.form['question']
 		# extract features
 		interview.extract_features()
 		# retrieve features
 		rtn_features = interview.get_features()
 		# save the interview
-		interview.save()
+		db.session.add(interview)
+		db.session.commit()
 	# render the template with the collected features
 	return render_template('interview_analysis/analysis.html', 
 							features=rtn_features, 

@@ -62,6 +62,9 @@ def recognize_speech(filename,
 Extract speech features.
 """
 
+def get_tokens(speech):
+	return nltk.word_tokenize(speech)
+
 def get_most_common_word(tokens):
 	""" 
 	Gets the most common word. 

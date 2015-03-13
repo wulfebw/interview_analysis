@@ -12,6 +12,7 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
 var constraints = {audio: true, video: true};
 var video = document.querySelector("video");
 var isFirefox = !!navigator.mozGetUserMedia;
+var jsQuestion;
 //
 
 /*
@@ -65,9 +66,12 @@ function PostBlob(audioBlob, videoBlob, fileName) {
         formData.append('filename', fileName);
         formData.append('audio-blob', audioBlob);
         formData.append('video-blob', videoBlob);
+        // other data
+        formData.append('question', jsQuestion);
+
         xhr('/upload', formData, function(html) {
       /* This writes the server response to the document. Cannot be the way it should be done. */
-	    document.write(html);
+      document.write(html);
         });
     }
 
@@ -106,4 +110,8 @@ function playVideo(mediaStream){
   video.height = 120;
   video.width = 160;
   video.play();
+}
+
+function setLocalVars(question){
+  jsQuestion = question;
 }
