@@ -15,6 +15,9 @@ import random
 import traceback
 import subprocess
 
+sys.path.append('../')
+from interview_analysis import app
+
 def exception_response(e):
 	"""
 	What is the correct thing to do with regards to logging info in a web app?
@@ -52,29 +55,31 @@ def get_rand_hex_value(n_digits):
 
 	return '%0{0}x'.format(n_digits) % random.randrange(16**n_digits)
 
-def make_dirs(pk, base='interviews'):
+def make_dirs(pk):
 	"""
-	Creates the directories used to stroe this video. This is awfully shortsighted to do all this 
-	file stuff when I'm just going to use a database, but oh well.
+	Creates the directories used to store this video. This is awfully shortsighted to do all this 
+	file stuff when I'm just going to use a database, but oh well. (future blake: yep)
 	"""
 
-	dirs = []
-	interview_dir = base + '/' + pk
-	dirs.append(interview_dir)
-	uploads_dir = interview_dir + '/' + 'uploads'
-	dirs.append(uploads_dir)
-	# features_dir = interview_dir + '/' + 'features'
-	# dirs.append(features_dir)
-	# linguistic_dir = features_dir + '/' + 'linguistic'
-	# dirs.append(linguistic_dir)
-	# paralinguistic_dir = features_dir + '/' + 'paralinguistic'
-	# dirs.append(paralinguistic_dir)
-	# visual_dir = features_dir + '/' + 'visual'
-	# dirs.append(visual_dir)
+	directory = app.config['UPLOAD_DIR'] + '/' + pk
+	print("DIRECTORY TO CREATE: {}".format(directory))
+	os.makedirs(directory)
 
-	for directory in dirs:
-		if not os.path.exists(directory):
-			os.makedirs(directory)
+	# dirs = []
+	# interview_dir = base + '/' + pk
+	# dirs.append(interview_dir)
+	# # features_dir = interview_dir + '/' + 'features'
+	# # dirs.append(features_dir)
+	# # linguistic_dir = features_dir + '/' + 'linguistic'
+	# # dirs.append(linguistic_dir)
+	# # paralinguistic_dir = features_dir + '/' + 'paralinguistic'
+	# # dirs.append(paralinguistic_dir)
+	# # visual_dir = features_dir + '/' + 'visual'
+	# # dirs.append(visual_dir)
+
+	# for directory in dirs:
+	# 	if not os.path.exists(directory):
+	# 		os.makedirs(directory)
 
 
 def stereo_to_mono(filename, samp_rate=16000, sox_exec_file='/usr/local/bin/sox'):
@@ -105,7 +110,7 @@ def get_file_duration(filename):
 		duration = n_frames / samprate
 		return int(duration)
 	else:
-		raise NotImplementedError("Only wave file durations are supported. ")
+		raise NotImplementedError("Only wave file durations are supported. Filename: {}".format(filename))
 
 def write_dict_features_to_file(features, output_filename):
 	"""

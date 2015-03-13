@@ -13,8 +13,8 @@ description: The functions in this file do the following:
 import os
 import sys
 import nltk
-import sphinxbase
-import pocketsphinx
+#import sphinxbase
+#import pocketsphinx
 
 """
 Recognize Speech from audio files.
@@ -43,6 +43,9 @@ def recognize_speech(filename,
 	:rtype: string
 	:return: the speech in the provided audio file
 	"""
+	# remove
+	return "this is a fake result"
+	# endremove
 
 	speech_recognizer = pocketsphinx.Decoder(hmm=hmm, lm=lm, dict=dic, samprate=samp_rate)
 	# open the wave file
@@ -88,9 +91,9 @@ def get_most_common_bigram(tokens):
 	freq_dist_bigrams = nltk.FreqDist(bigrams)
 	return freq_dist_bigrams.most_common(1)
 
-def get_num_occurences_of_word(tokens, word='i'):
+def get_num_occurrences_of_word(tokens, word='i'):
 	""" 
-	Gets the number of occurences of a word, with default as 'I'. 
+	Gets the number of occurrences of a word, with default as 'I'. 
 
 	:type tokens: list of strings
 	:param tokens: list of the words in speech
@@ -109,7 +112,7 @@ def get_linguistic_features(speech):
 	linguistic_features['speech'] = speech
 	linguistic_features['most common word'] = get_most_common_word(tokens)
 	linguistic_features['most common bigram'] = get_most_common_bigram(tokens)
-	linguistic_features['number of occurences of {0}'.format('i')] = get_num_occurences_of_word(tokens, 'i')
+	linguistic_features['number of occurrences of {0}'.format('i')] = get_num_occurrences_of_word(tokens, 'i')
 	return linguistic_features 
 
 

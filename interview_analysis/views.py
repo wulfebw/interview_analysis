@@ -1,13 +1,18 @@
-from upload_analysis import app
+import os
+from shutil import move
 
-#from analyzers.linguistic_analysis import recognize_speech, get_linguistic_features
-from analyzers.utils import get_rand_hex_value, make_dirs, stereo_to_mono, write_dict_features_to_file
+from flask import render_template, request, redirect, url_for, send_from_directory
 
+from interview_analysis import app
+
+from scripts.utils import get_rand_hex_value, make_dirs, stereo_to_mono, write_dict_features_to_file
+
+from models import Interview
 
 # Set the route to the file upload
 @app.route('/')
 def index():
-    return render_template('recordrtc_index.html')
+    return render_template('interview_analysis/upload.html')
 
 # Route that will process the file upload
 @app.route('/upload', methods=['POST'])
@@ -17,6 +22,7 @@ def upload():
 	# not using a database for now, really need to learn more flask
 	pk_length = app.config['HEX_PK_LENGTH']
 	pk = get_rand_hex_value(pk_length)
+	print("PK_PRINT: {}".format(pk))
 	make_dirs(pk)
 
 	# create a dictionary to hold the features we collect
@@ -33,10 +39,10 @@ def upload():
 		# raise Exception(e)
 
 	if video:
-		# dir/filename for video to be saved as
-		video_filename = os.path.join(app.config['UPLOAD_FOLDER'],'{0}/uploads/video.webm'.format(pk))
 		# set the filename link to send back to the user
-		video_link = '{0}/uploads/video.webm'.format(pk)
+		video_link = '{0}/{1}'.format(pk, app.config['VIDEO_FILENAME'])
+		# dir/filename for video to be saved as
+		video_filename = os.path.join(app.config['UPLOAD_DIR'], video_link)
 		# save the video
 		video.save(video_filename)
 
@@ -47,33 +53,33 @@ def upload():
 		# raise Exception(e)
 
 	if audio:
-		# dir/filename for audio to be saved as
-		audio_filename = os.path.join(app.config['UPLOAD_FOLDER'],'{0}/uploads/audio.wav'.format(pk))
 		# set the filename link to send back to the user
-		audio_link = '{0}/uploads/audio.wav'.format(pk)
+		audio_link = '{0}/{1}'.format(pk, app.config['AUDIO_FILENAME'])
+		# dir/filename for audio to be saved as
+		audio_filename = os.path.join(app.config['UPLOAD_DIR'], audio_link)
+		print("AUDIO_FILENAME: {}".format(audio_filename))
 		# save the audio 
 		audio.save(audio_filename)
 		# convert to mono
 		audio_mono_filename = stereo_to_mono(audio_filename)
-		# perform speech recognition
-		speech = 'test speech' #recognize_speech(audio_mono_filename)
-		# get the linguistic stats 
-		linguistic_features = {} #get_linguistic_features(speech)
-		# get output file for linguistic features
-		linguistic_features_file = 'interviews/{0}/features/linguistic_features.txt'.format(pk)
-		# write linguistic features to file
-		write_dict_features_to_file(linguistic_features, linguistic_features_file)
-		# add linguistic features to rtn_dict
-		rtn_features = dict(rtn_features.items() + linguistic_features.items())
-
+		# overwrite the original file with the mono one
+		move(audio_mono_filename, audio_filename)
+		# create the object
+		interview = Interview(pk)
+		# extract features
+		interview.extract_features()
+		# retrieve features
+		rtn_features = interview.get_features()
+		# save the interview
+		interview.save()
 	# render the template with the collected features
-	return render_template('features.html', 
+	return render_template('interview_analysis/analysis.html', 
 							features=rtn_features, 
-							video_filename=video_filename, 
-							audio_filename=audio_filename, 
+							video_filename=video_link, 
+							audio_filename=audio_link, 
 							pk=pk)
 
 # route that will display previously uploaded media
 @app.route('/interviews/<path:filepath>')
 def uploaded_file(filepath):
-	return send_from_directory(app.config['UPLOAD_FOLDER'], filepath)
+	return send_from_directory(app.config['UPLOAD_DIR'], filepath)
