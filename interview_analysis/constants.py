@@ -1,3 +1,5 @@
+
+""" INTERVIEW """
 """
 Meta variables
 """
@@ -19,6 +21,7 @@ SPEECH = 'speech'
 MOST_COMMON_WORD = 'most_common_word'
 MOST_COMMON_BIGRAM = 'most_common_bigram'
 N_OCCURRENCES_I = 'n_occurrences_i'
+QUESTION_WORDS_IN_RESPONSE = 'question_words_in_response'
 
 
 """
@@ -42,3 +45,18 @@ INTERVIEW_QUESTIONS = [
 		'What is your greatest failure, and what did you learn from it?'
 		]
 
+""" ASSESSMENT """
+
+PREDICTION = 'prediction'
+ACTUAL = 'actual'
+
+""" Features """
+CONFIDENCE = 'confidence'
+ENGAGEMENT = 'engagement'
+TEAM_PLAYER = 'team_player'
+
+""" Classifier Settings """
+C = 1 
+GAMMA = .1 
+WEIGHT = 'auto' # {1:7.5, 0:1} 
+KERNEL = 'linear'

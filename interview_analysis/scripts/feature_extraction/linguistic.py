@@ -65,7 +65,7 @@ Extract speech features.
 def get_tokens(speech):
 	return nltk.word_tokenize(speech)
 
-def get_most_common_word(tokens):
+def get_most_common_word(tokens, n_words=1):
 	""" 
 	Gets the most common word. 
 
@@ -77,7 +77,7 @@ def get_most_common_word(tokens):
 	"""
 
 	freq_dist = nltk.FreqDist(tokens)
-	return freq_dist.most_common(1)
+	return freq_dist.most_common(n_words)
 
 def get_most_common_bigram(tokens):
 	""" 
@@ -106,6 +106,12 @@ def get_num_occurrences_of_word(tokens, word='i'):
 	"""
 	
 	return tokens.count(word)
+
+def are_question_words_in_response(tokens, question):
+	question_set = set(nltk.word_tokenize(question))
+	response_set = set(tokens)
+	return question_set & response_set
+
 
 def get_linguistic_features(speech):
 	""" Calculates all linguistic features and then returns a dictionary of labels to features. """

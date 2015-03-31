@@ -1,9 +1,30 @@
 
 <div>
-     	{% for label, value in features.iteritems() %}
-                <p>{{ label }} : {{ value }}</p>
-        {% endfor%}
+    
+    {% if hiring_decision %}
+        <h3> Congratulations, you're hired!</h3>
+    {% else %}
+        <h3> Unfortunately, we have decided to not hire you. There were many qualified candidates we assure you.</h3>
+    {% endif %}
+    
+</div>
+
 <div>
+    <h4>High-Level Features</h4>
+    {% for label, value in prediction_features.iteritems() %}
+            <p>{{ label }} : {{ value }}</p>
+    {% endfor %}
+</div>
+
+<div>
+    <h4>Low Level Features</h4>
+
+ 	{% for label, value in features.iteritems() %}
+            <p>{{ label }} : {{ value }}</p>
+    {% endfor %}
+<div>
+
+
 
 <div>
     <form action="interviews/{{ audio_filename }}" method="get" target="_blank">

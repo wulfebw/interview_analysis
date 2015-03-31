@@ -8,7 +8,7 @@ from interview_analysis import app, db
 
 from scripts.utils import get_rand_hex_value, make_dirs, stereo_to_mono, write_dict_features_to_file
 
-from models import Interview
+from models import Interview, Assessment
 
 from constants import *
 
@@ -77,12 +77,23 @@ def upload():
 		interview.extract_features()
 		# retrieve features
 		rtn_features = interview.get_features()
+		rtn_features[SPEECH] = interview.get_speech()
+		rtn_features[QUESTION] = interview.get_question()
 		# save the interview
 		db.session.add(interview)
-		db.session.commit()
+		db.session.commit()				# can this be done after creating the assessment?
+		# perform the assessment
+		assessment = Assessment(interview, PREDICTION)
+		assessment.predict()
+		# get the prediction values
+		prediction_features = assessment.get_predictions()
+		# make the hiring decision
+		hiring_decision = assessment.make_hiring_decision()
 	# render the template with the collected features
 	return render_template('interview_analysis/analysis.html', 
 							features=rtn_features, 
+							prediction_features=prediction_features,
+							hiring_decision=hiring_decision,
 							video_filename=video_link, 
 							audio_filename=audio_link, 
 							pk=pk)
